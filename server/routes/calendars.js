@@ -25,4 +25,28 @@ calendars.post("/:userId", (req, res) => {
     );
 });
 
+calendars.put("/todo/:calendarId", (req, res) => {
+  const { body } = req;
+  const { calendarId } = req.params;
+  console.log(calendarId);
+
+  Calendar.where({ id: calendarId })
+    .fetch()
+    .then((calendar) => {
+      console.log(calendar.attributes.todos);
+      calendar
+        .save({
+          ...calendar.attributes,
+          todos: JSON.stringify([
+            ...JSON.parse(calendar.attributes.todos),
+            body,
+          ]),
+        })
+        .then((modifiedCalendar) => res.status(200).json(modifiedCalendar));
+    })
+    .catch((err) =>
+      res.status(400).json({ message: "couldn't retrieve calendar" })
+    );
+});
+
 module.exports = calendars;
