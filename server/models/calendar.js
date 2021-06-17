@@ -2,8 +2,11 @@ const bookshelf = require("../bookshelf");
 
 const Calendar = bookshelf.model("Calendar", {
   tableName: "calendars",
-  inventories: function () {
+  users: function () {
     return this.belongsTo("User");
+  },
+  todos: function () {
+    return this.hasMany("Todo");
   },
 });
 

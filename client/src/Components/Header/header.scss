@@ -1,0 +1,23 @@
+@use "../../partials/variables" as *;
+
+.header {
+  bottom: 0;
+  left: 0;
+  right: 0;
+  top: 0;
+
+  display: flex;
+  justify-content: center;
+  margin: px-to-rem(24);
+  &__login-toggle {
+    padding: 0;
+  }
+  &__list {
+    list-style: none;
+  }
+  &__button {
+    &--active {
+      background-color: blue;
+    }
+  }
+}

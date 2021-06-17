@@ -1,0 +1,23 @@
+@use "../../partials/variables" as *;
+
+@mixin border-style {
+  border-left: px-to-rem(1) solid black;
+  border-right: px-to-rem(1) solid black;
+  border-bottom: px-to-rem(1) solid black;
+}
+
+.login {
+  display: flex;
+  justify-content: center;
+  margin-top: px-to-rem(100);
+
+  &__form {
+    display: flex;
+    flex-direction: column;
+  }
+  &__input {
+    border-top: none;
+    @include border-style();
+    outline: none;
+  }
+}

@@ -3,8 +3,9 @@ const Calendar = require("../models/calendar");
 
 const calendars = express.Router();
 
-calendars.get("/", (req, res) => {
-  Calendar.fetchAll()
+calendars.get("/:userId", (req, res) => {
+  Calendar.where({ user_id: req.params.userId })
+    .fetchAll()
     .then((response) => res.status(200).json(response))
     .catch((err) => console.log(err));
 });
@@ -25,22 +26,17 @@ calendars.post("/:userId", (req, res) => {
     );
 });
 
-calendars.put("/todo/:calendarId", (req, res) => {
+calendars.put("/:calendarId", (req, res) => {
   const { body } = req;
   const { calendarId } = req.params;
-  console.log(calendarId);
 
   Calendar.where({ id: calendarId })
     .fetch()
     .then((calendar) => {
-      console.log(calendar.attributes.todos);
       calendar
         .save({
           ...calendar.attributes,
-          todos: JSON.stringify([
-            ...JSON.parse(calendar.attributes.todos),
-            body,
-          ]),
+          ...body,
         })
         .then((modifiedCalendar) => res.status(200).json(modifiedCalendar));
     })

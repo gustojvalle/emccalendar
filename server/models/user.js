@@ -2,7 +2,7 @@ const bookshelf = require("../bookshelf");
 
 const User = bookshelf.model("User", {
   tableName: "users",
-  inventories: function () {
+  calendars: function () {
     return this.hasMany("Calendar");
   },
 });

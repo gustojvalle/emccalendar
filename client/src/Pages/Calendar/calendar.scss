@@ -1,0 +1,5 @@
+@use "../../partials/variables" as *;
+.calendar {
+  position: "relative";
+  margin: px-to-rem(24);
+}

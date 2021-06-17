@@ -1,0 +1,11 @@
+.todo {
+  border: 1px solid black;
+  background-color: blue;
+
+  &:hover {
+    cursor: pointer;
+  }
+  &--dragged {
+    border: 1px dashed black;
+  }
+}

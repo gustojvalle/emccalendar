@@ -1,0 +1,11 @@
+.day-card {
+  width: 100%;
+  background-color: burlywood;
+  border: 2px solid black;
+  &__title {
+    text-align: center;
+  }
+  &__box {
+    min-height: 10rem;
+  }
+}
