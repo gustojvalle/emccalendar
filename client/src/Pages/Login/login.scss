@@ -1,9 +1,7 @@
 @use "../../partials/variables" as *;
 
 @mixin border-style {
-  border-left: px-to-rem(1) solid black;
-  border-right: px-to-rem(1) solid black;
-  border-bottom: px-to-rem(1) solid black;
+  border: px-to-rem(1) solid $background-color;
 }
 
 .login {

@@ -5,7 +5,7 @@ const LoginContext = createContext({
     isLoggedIn: true,
     loginState: "signup",
     user: {
-      id: 2,
+      id: 1,
       name: "john",
       email: "test@test.com",
       active: true,

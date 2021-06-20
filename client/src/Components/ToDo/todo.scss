@@ -1,11 +1,52 @@
-.todo {
-  border: 1px solid black;
-  background-color: blue;
+@use '../../partials/variables' as *;
 
+.todo {
+  padding: px-to-rem(10);
+  width: 100%;
+  display: flex;
+  position: relative;
+  flex-direction: column;
+  overflow: hidden;
+  &__completed {
+    position: relative;
+    z-index: 0;
+    &-mask {
+      display: none;
+      position: absolute;
+      top: 0;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      width: 100%;
+      height: 100%;
+      background-color: rgba($color: green, $alpha: 0.1);
+      &--completed {
+        display: block;
+      }
+    }
+  }
+  align-items: center;
   &:hover {
     cursor: pointer;
   }
+
+  @include card;
+
   &--dragged {
     border: 1px dashed black;
   }
+
+  &__button {
+    &-container {
+      margin-top: px-to-rem(16);
+    }
+    margin-right: px-to-rem(16);
+    position: relative;
+
+    z-index: 0;
+  }
+}
+
+.--complete {
+  @include neumorphic-shadows-inset(5, 6);
 }

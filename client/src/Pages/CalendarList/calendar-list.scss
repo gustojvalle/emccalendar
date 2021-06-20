@@ -1,4 +1,24 @@
+@use '../../partials/variables' as *;
+
 .calendar-list {
   display: flex;
-  justify-content: space-between;
+  flex-direction: column;
+  align-items: center;
+  flex-wrap: wrap;
+  margin: px-to-rem(24);
+
+  &__add {
+    padding: px-to-rem(10);
+    @include card;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    @include neumorphic-shadows(5, 6);
+    &:hover {
+      cursor: pointer;
+    }
+  }
+  &__title {
+    margin-bottom: px-to-rem(16);
+  }
 }

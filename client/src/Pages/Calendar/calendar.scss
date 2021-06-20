@@ -1,5 +1,25 @@
 @use "../../partials/variables" as *;
-.calendar {
+.calendar-page {
   position: "relative";
   margin: px-to-rem(24);
+
+  &__add-todo {
+  }
+
+  &__cancel {
+    display: block;
+    margin-bottom: px-to-rem(16);
+    &--hidden {
+      display: none;
+    }
+  }
+}
+
+.--open {
+  transform: translateY(0);
+  display: block;
+}
+.--closed {
+  transform: translateY(-100%);
+  display: none;
 }

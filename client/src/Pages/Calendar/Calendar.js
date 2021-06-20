@@ -1,77 +1,83 @@
 import "./calendar.scss";
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useContext } from "react";
 import DayCard from "../../Components/DayCard/DayCard";
-import { fetchCalendars } from "../../modules/fetchingData";
+import { fetchCalendar } from "../../modules/fetchingData";
 import LoginContext from "../../Context/LoginContext";
-import socketIOClient from "socket.io-client";
+
 import queryString from "query-string";
-import axios from "axios";
-import {
-  socketTodosHandler,
-  setDaysArray,
-  setDayDate,
-  dateString,
-} from "../../modules/calendarLogic";
+import SocketContext from "../../Context/socketContext";
+
+import { socketTodosHandler, setDaysArray } from "../../modules/calendarLogic";
+import EditTodoInCal from "../../Components/EditTodoInCal/EditTodoInCal";
 
 const ENDPOINT = "http://localhost:5001";
 
 const Calendar = ({ params, history }) => {
-  console.log(history);
   const queryParams = queryString.parse(history.location.search);
 
   const [todos, setTodos] = useState([]);
   const [calendar, setCalendar] = useState({ calendar_id: 3 });
   const [days, setDays] = useState([]);
-  const [response, setResponse] = useState({});
-  const socket = socketIOClient("http://localhost:5001");
+  const [addingTodo, setAddingTodo] = useState(false);
+  const socket = useContext(SocketContext);
 
   useEffect(() => {
-    if (!days.length === 0) {
-      console.log(days);
+    if (days.length !== 0) {
+      console.log("oh my days", days);
     }
   }, [days]);
 
-  useEffect(() => {
-    socketTodosHandler(socket, queryParams.id, setTodos);
-    // axios
-    //   .get(`http://localhost:5001/todos/${queryParams.id}`)
-    //   .then((response) => console.log(response));
-  }, []);
-
-  const clicked = (e, calendar_id) => {
-    console.log("clicked");
-
-    socketTodosHandler(socket, calendar_id, setTodos);
+  const handleOpenClose = (_e) => {
+    setAddingTodo((prev) => !prev);
   };
 
   return (
     <LoginContext.Consumer>
       {({ login }) => {
-        console.log("login", login);
+        console.log(days.length);
         if (days.length === 0) {
-          fetchCalendars(queryParams.id)
+          fetchCalendar(queryParams.id)
             .then(({ numOfDays, data }) => {
-              numOfDays = setDaysArray(numOfDays, data);
+              const newNumOfDays = setDaysArray(numOfDays, data);
               socketTodosHandler(socket, queryParams.id, setTodos);
-              setDays(numOfDays);
+              setDays(newNumOfDays);
+              console.log("oh my days", days);
               setCalendar(data);
             })
             .catch((err) => {});
         }
 
         return (
-          <div className="calendar" onDragOver={(e) => e.preventDefault()}>
-            <button onClick={(e) => clicked(e, calendar.id)}>emmit</button>
-            {days.map((day) => (
-              <DayCard
-                calendarId={calendar.id}
-                socket={socket}
-                todos={todos}
-                setTodos={setTodos}
-                day={day.dayString}
-                dayDate={day.dayDate}
-              />
-            ))}
+          <div className="calendar-page" onDragOver={(e) => e.preventDefault()}>
+            <div className="calendar-page__add-todo">
+              <div className={addingTodo ? "--open" : "--closed"}>
+                <EditTodoInCal
+                  handleOpenClose={handleOpenClose}
+                  todos={todos}
+                  setTodos={setTodos}
+                  calendarId={calendar.id}
+                  addingTodo={addingTodo}
+                />
+              </div>
+              <button
+                className="calendar-page__cancel"
+                onClick={handleOpenClose}
+              >
+                {addingTodo ? "Cancel" : "Add todo"}
+              </button>
+            </div>
+            <div className="calendar-page__container">
+              {days.map((day) => (
+                <DayCard
+                  calendarId={calendar.id}
+                  socket={socket}
+                  todos={todos}
+                  setTodos={setTodos}
+                  day={day.dayString}
+                  dayDate={day.dayDate}
+                />
+              ))}
+            </div>
           </div>
         );
       }}

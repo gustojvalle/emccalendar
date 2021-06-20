@@ -10,7 +10,8 @@ exports.up = function (knex) {
       table.string("salt");
     })
     .createTable("calendars", (table) => {
-      table.increments("id").primary(1000);
+      table.string("name").notNullable();
+      table.increments("id").primary();
       table.integer("big_block").notNullable();
       table.integer("small_block").notNullable();
       table.timestamp("starting_date").defaultTo(knex.fn.now());

@@ -6,6 +6,7 @@ import {
   comparingDates,
   todoReseting,
   socketTodosHandler,
+  setDayDate,
 } from "../../modules/calendarLogic";
 
 const DayCard = ({ socket, dayDate, day, todos, setTodos, calendarId }) => {
@@ -17,21 +18,10 @@ const DayCard = ({ socket, dayDate, day, todos, setTodos, calendarId }) => {
     e.preventDefault();
     const todoId = e.dataTransfer.getData("id");
 
-    const updateDate = dayDate.toISOString().slice(0, 19).replace("T", " ");
-
-    console.log("todo", updateDate);
-
-    // socket.emit("updateTodo", {
-    //   id: parseInt(todoId),
-    //   body: { estimated_completion: updateDate },
-    // });
-
+    console.log("day Date", dayDate);
+    console.log("day ", day);
     updatingTodo(dayDate, socket, todoId, todos, setTodos);
     console.log("todo");
-    // socketTodosHandler(socket, calendarId, setTodos);
-
-    // const newTodos = todoReseting(todos, todoId, day);
-    // setTodos(newTodos);
   };
   return (
     <div className="day-card">
@@ -43,10 +33,15 @@ const DayCard = ({ socket, dayDate, day, todos, setTodos, calendarId }) => {
         onDrop={(e) => dropHandler(e, day)}
       >
         {todos.map((todo) => {
-          console.log(comparingDates(todo.estimated_completion, dayDate));
           return (
             comparingDates(todo.estimated_completion, dayDate) && (
-              <Todo todo={todo} todoId={todo.id} />
+              <Todo
+                todos={todos}
+                setTodos={setTodos}
+                todo={todo}
+                todoId={todo.id}
+                socket={socket}
+              />
             )
           );
         })}

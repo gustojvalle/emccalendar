@@ -1,7 +1,13 @@
+@use '../../partials/variables' as *;
 .day-card {
+  padding: px-to-rem(10);
+  @include card;
   width: 100%;
-  background-color: burlywood;
-  border: 2px solid black;
+  @include neumorphic-shadows(5, 6);
+  &:hover {
+    @include neumorphic-shadows(5, 6);
+  }
+
   &__title {
     text-align: center;
   }

@@ -2,8 +2,10 @@ const express = require("express");
 const app = express();
 const cors = require("cors");
 const {
+  postTodo,
   updateTodo,
   fetchTodosCalendar,
+  deleteTodo,
 } = require("./websocketLogic/websocketLogic");
 
 const server = require("http").createServer(app);
@@ -29,14 +31,24 @@ app.use("/websocket", websocket);
 io.on("connection", (socket) => {
   //fetching todos by calendar
   socket.on("fetchTodosCalendar", (data) => {
-    console.log(data);
+    console.log("fetching todos data");
     fetchTodosCalendar(data, socket);
   });
 
   socket.on("updateTodo", (data) => {
-    updateTodo(data.id, data.body).then((upTodo) =>
-      socket.emit("resTodo", upTodo)
-    );
+    updateTodo(data.id, data.body)
+      .then((upTodo) => socket.emit("resTodo", upTodo))
+      .catch((err) => console.log("failed to update database"));
+  });
+
+  socket.on("postTodo", (data) => {
+    console.log(data);
+    postTodo(data.body, socket);
+  });
+
+  socket.on("deleteTodo", (todoId, calendarId) => {
+    console.log(calendarId);
+    deleteTodo(socket, todoId, calendarId);
   });
 
   socket.on("disconnect", () => {

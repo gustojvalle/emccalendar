@@ -1,0 +1,27 @@
+@use "../../partials/variables" as *;
+.add-calendar {
+  position: fixed;
+  background-color: rgba($background-color, 0.6);
+  height: 100%;
+  top: 0;
+  left: 0;
+  bottom: 0;
+  right: 0;
+  z-index: 5;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+
+  justify-content: center;
+  &__form {
+    @include neumorphic-shadows(5, 6);
+    background-color: $background-color;
+    display: flex;
+    flex-direction: column;
+    width: 80%;
+    padding: px-to-rem(16);
+  }
+  &__title {
+    align-self: center;
+  }
+}

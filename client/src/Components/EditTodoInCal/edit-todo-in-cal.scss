@@ -1,0 +1,35 @@
+@use '../../partials/variables' as *;
+
+.edit-cal {
+  position: relative;
+  z-index: 2;
+  // @include card;
+  // @include neumorphic-shadows(18, 18);
+  display: flex;
+  flex-direction: column;
+  padding: px-to-rem(10);
+  &__button {
+    width: fit-content;
+    margin-right: px-to-rem(16);
+    &-container {
+      display: flex;
+      justify-content: center;
+      margin-top: px-to-rem(16);
+    }
+  }
+  &__title {
+    margin-bottom: px-to-rem(16);
+  }
+  &__date {
+    margin-top: px-to-rem(24);
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    &-label {
+    }
+  }
+
+  &__estimated {
+    margin-left: px-to-rem(5);
+  }
+}

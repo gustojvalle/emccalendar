@@ -1,5 +1,7 @@
+@use './partials/variables' as *;
 body,
 html {
+  background-color: $background-color;
   margin: 0;
   padding: 0;
   box-sizing: border-box;
@@ -11,4 +13,45 @@ html {
   box-sizing: inherit;
   margin: 0;
   padding: 0;
+}
+
+a {
+  text-decoration: none;
+  color: black;
+}
+
+ul,
+ol {
+  list-style-type: none;
+}
+
+li {
+  @include neumorphic-shadows(5, 6);
+  @include card;
+  padding: px-to-rem(16);
+}
+
+button {
+  @include card;
+
+  border: none;
+  padding: px-to-rem(8);
+  @include neumorphic-shadows(5, 6);
+
+  margin-bottom: 0;
+  &:hover {
+    cursor: pointer;
+    @include neumorphic-shadows-inset(5, 6);
+  }
+  &:active {
+    background-color: rgba($color: black, $alpha: 0.1);
+  }
+}
+
+input {
+  background-color: $background-color;
+  @include neumorphic-shadows-inset(5, 6);
+  border-radius: px-to-rem(5);
+  border: none;
+  padding: px-to-rem(8);
 }

@@ -8,16 +8,21 @@
 
   display: flex;
   justify-content: center;
-  margin: px-to-rem(24);
+
   &__login-toggle {
     padding: 0;
   }
   &__list {
     list-style: none;
+    box-shadow: none;
+    &:hover {
+      box-shadow: none;
+    }
   }
   &__button {
+    margin-right: px-to-rem(24);
     &--active {
-      background-color: blue;
+      @include neumorphic-shadows-inset(5, 6);
     }
   }
 }
