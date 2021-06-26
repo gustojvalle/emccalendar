@@ -19,7 +19,7 @@
   position: relative;
 
   &__svg {
-    width: px-to-rem(60);
+    width: px-to-rem(50);
   }
 
   &__nav {
@@ -35,6 +35,18 @@
     align-items: center;
     justify-content: center;
     z-index: 1;
+
+    @include tablet {
+      flex-direction: row;
+      transform: translateX(0);
+      position: relative;
+      justify-content: flex-start;
+      margin: px-to-rem(16) px-to-rem(42);
+      width: auto;
+    }
+    @include desktop {
+      margin: px-to-rem(24) px-to-rem(180);
+    }
     &--show {
       animation: slider 2s;
       -moz-animation: slider 2s;
@@ -53,8 +65,25 @@
     justify-content: center;
     margin-top: px-to-rem(24);
     margin-left: px-to-rem(24);
+    @include tablet {
+      display: none;
+    }
     &:hover {
       cursor: pointer;
+    }
+  }
+
+  &__list {
+    &-home {
+      @include tablet {
+        margin-right: px-to-rem(32);
+      }
+    }
+    &-logout {
+      @include tablet {
+        margin-right: 0;
+        margin-left: auto;
+      }
     }
   }
 }

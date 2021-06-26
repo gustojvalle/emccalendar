@@ -28,7 +28,7 @@ const EditTodoInCal = ({
         estimated_completion: new Date(todo.estimated_completion),
       });
     }
-  }, []);
+  }, [todo]);
 
   useEffect(() => {
     let myNewInitialDate;
@@ -42,7 +42,7 @@ const EditTodoInCal = ({
       }`;
     } else {
       const myDate = new Date(Date.now());
-      console.log(myDate.getDate());
+
       const year = myDate.getFullYear();
       const month = myDate.getMonth() + 1;
       const day = myDate.getDate();
@@ -50,13 +50,14 @@ const EditTodoInCal = ({
         day < 10 ? "0" + day : day
       }`;
     }
-    console.log("checking initial", initial);
+
     setInitial({ ...initial, initialDate: myNewInitialDate });
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [todo]);
 
   const addNewTodo = (e) => {
     e.preventDefault();
-    console.log(handleOpenClose);
+
     addTodo(
       socket,
       updateInfo,
@@ -86,13 +87,10 @@ const EditTodoInCal = ({
     e.preventDefault();
     isEditing && changeIsEditing();
     addingTodo && handleOpenClose();
-    console.log("cancel");
+
     // changeIsEditing();
   };
 
-  useEffect(() => {
-    console.log(updateInfo);
-  }, [updateInfo]);
   return (
     <form onSubmit={(e) => e.preventDefault()} className="edit-cal">
       <input

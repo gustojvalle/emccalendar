@@ -1,53 +1,105 @@
 import "./login.scss";
-import React from "react";
+import React, { useState } from "react";
+import { Redirect } from "react-router-dom";
 import LoginContext from "../../Context/LoginContext";
+import { loginServerRequest, registerUser } from "../../modules/fetchingData";
 
-const Login = () => {
+const Login = ({ history }) => {
+  const [formData, setFormData] = useState({
+    name: "",
+    email: "",
+    password: "",
+  });
+
+  const handleChange = (e) => {
+    setFormData({ ...formData, [e.target.name]: e.target.value });
+  };
+
+  const handleRegister = (e) => {
+    e.preventDefault();
+    console.log("Register");
+    registerUser(formData);
+  };
+  const handleLogin = (e, login, setLoginData) => {
+    e.preventDefault();
+    loginServerRequest(
+      { email: formData.email, password: formData.password },
+
+      login,
+      setLoginData,
+      history
+    );
+  };
+
   return (
     <div className="login">
-      <form className="login__form">
-        {
-          <LoginContext.Consumer>
-            {({ login }) => {
-              return (
-                login.loginState === "signup" && (
-                  <>
-                    <label>Name</label>
+      {
+        <LoginContext.Consumer>
+          {(props) => {
+            const { login, setLoginState } = props;
 
-                    <input
-                      className="login__input"
-                      type="text"
-                      placeholder="Name..."
-                      name="name"
-                    />
-                  </>
-                )
-              );
-            }}
-          </LoginContext.Consumer>
-        }
+            return (
+              <>
+                <form className="login__form">
+                  {login.isLoggedIn && <Redirect from="/login" to="/" />}
 
-        <label>Email</label>
-        <input
-          className="login__input"
-          type="email"
-          placeholder="Email..."
-          name="email"
-        />
+                  {login.loginState === "signup" && (
+                    <>
+                      <label className="login__label">Name</label>
 
-        <label>Password</label>
-        <input
-          className="login__input"
-          type="password"
-          placeholder="Password..."
-          name="email"
-        />
+                      <input
+                        onChange={handleChange}
+                        className="login__input"
+                        type="text"
+                        placeholder="Name..."
+                        name="name"
+                        value={formData.name}
+                      />
+                    </>
+                  )}
+                  <label className="login__label">Email</label>
+                  <input
+                    onChange={handleChange}
+                    className="login__input"
+                    type="email"
+                    placeholder="Email..."
+                    name="email"
+                    value={formData.email}
+                  />
 
-        <div className="login__button-container">
-          <button className="login__button">Login With Email</button>
-          <button className="login__button">Login With Google</button>
-        </div>
-      </form>
+                  <label className="login__label">Password</label>
+                  <input
+                    onChange={handleChange}
+                    className="login__input"
+                    type="password"
+                    placeholder="Password..."
+                    name="password"
+                    value={formData.password}
+                  />
+
+                  <div className="login__button-container">
+                    <button
+                      onClick={
+                        login.loginState === "login"
+                          ? (e) => handleLogin(e, login, setLoginState)
+                          : handleRegister
+                      }
+                      className="login__button-left"
+                    >
+                      {login.loginState === "login" ? "Login" : "Signup"} With
+                      Email
+                    </button>
+                    <button className="login__button">
+                      {login.loginState === "login" ? "Login" : "Signup"} With
+                      Google
+                    </button>
+                  </div>
+                </form>
+              </>
+            );
+          }}
+        </LoginContext.Consumer>
+      }
     </div>
   );
 };

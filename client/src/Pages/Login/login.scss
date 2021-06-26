@@ -9,6 +9,10 @@
   justify-content: center;
   margin-top: px-to-rem(100);
 
+  &__label {
+    margin-bottom: px-to-rem(5);
+  }
+
   &__form {
     display: flex;
     flex-direction: column;
@@ -17,5 +21,9 @@
     border-top: none;
     @include border-style();
     outline: none;
+    margin-bottom: px-to-rem(16);
+  }
+  &__button-left {
+    margin-right: px-to-rem(16);
   }
 }

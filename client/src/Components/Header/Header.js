@@ -1,9 +1,9 @@
 import "./header.scss";
-import React, { useContext, useState, useEffect } from "react";
-import LoginContext, { LoginProvider } from "../../Context/LoginContext";
+import React from "react";
+import LoginContext from "../../Context/LoginContext";
 import BurgerMenu from "../BurgerMenu/BurgerMenu";
 
-const Header = () => {
+const Header = ({ history }) => {
   return (
     <LoginContext.Consumer>
       {({ login, setLoginState }) => {
@@ -44,7 +44,10 @@ const Header = () => {
         } else {
           return (
             <header className="header">
-              <BurgerMenu burgerBarClassName={"header__burger-bar"} />
+              <BurgerMenu
+                history={history}
+                burgerBarClassName={"header__burger-bar"}
+              />
             </header>
           );
         }

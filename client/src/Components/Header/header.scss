@@ -9,18 +9,24 @@
   display: flex;
   justify-content: center;
 
+  @include tablet {
+    display: flex;
+  }
+
   &__login-toggle {
     padding: 0;
   }
   &__list {
     list-style: none;
     box-shadow: none;
+    margin-top: px-to-rem(24);
     &:hover {
       box-shadow: none;
     }
   }
   &__button {
     margin-right: px-to-rem(24);
+
     &--active {
       @include neumorphic-shadows-inset(5, 6);
     }

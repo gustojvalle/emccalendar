@@ -1,0 +1,36 @@
+@font-face {
+    font-family: NotoSans-black;
+    src: url(../assets/fonts/NotoSansJP-Black.otf);
+}
+
+@font-face {
+    font-family: NotoSans-bold;
+    src: url(../assets/fonts/NotoSansJP-Bold.otf);
+}
+@font-face {
+    font-family: NotoSans-light;
+    src: url(../assets/fonts/NotoSansJP-Light.otf);
+}
+@font-face {
+    font-family: NotoSans-medium;
+    src: url(../assets/fonts/NotoSansJP-Medium.otf);
+}
+@font-face {
+    font-family: NotoSans-regular;
+    src: url(../assets/fonts/NotoSansJP-Regular.otf);
+}
+
+@font-face {
+    font-family: NotoSans-thin;
+    src: url(../assets/fonts/NotoSansJP-Thin.otf);
+}
+
+
+
+@mixin font-declaration ($font-size, $font-family, $line-height, $colour) {
+    font-family: $font-family;
+    font-size: $font-size;
+    line-height: $line-height;
+    color: $colour;
+    
+}

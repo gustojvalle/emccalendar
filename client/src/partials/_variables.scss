@@ -39,3 +39,15 @@ $white: #fff;
   border: 1px solid black;
   background-color: blue;
 }
+
+@mixin tablet {
+  @media (min-width: 779px) {
+    @content;
+  }
+}
+
+@mixin desktop {
+  @media (min-width: 1280px) {
+    @content;
+  }
+}

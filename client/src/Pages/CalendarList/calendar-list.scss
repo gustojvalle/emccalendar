@@ -7,6 +7,14 @@
   flex-wrap: wrap;
   margin: px-to-rem(24);
 
+  @include tablet {
+    align-content: center;
+    align-items: center;
+  }
+  @include desktop {
+    margin: px-to-rem(16) px-to-rem(180);
+  }
+
   &__add {
     padding: px-to-rem(10);
     @include card;
@@ -17,8 +25,44 @@
     &:hover {
       cursor: pointer;
     }
+    @include tablet {
+      height: px-to-rem(80);
+      align-self: center;
+    }
+    &-container {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      @include card;
+      justify-content: center;
+
+      padding: px-to-rem(16);
+      // width: 100%;
+
+      &:hover {
+        box-shadow: none;
+      }
+
+      @include tablet {
+        // width: 30%;
+        margin-right: px-to-rem(24);
+        align-items: center;
+        justify-content: center;
+      }
+    }
   }
   &__title {
-    margin-bottom: px-to-rem(16);
+    margin-bottom: px-to-rem(24);
+  }
+  &__container {
+    width: 100%;
+    display: flex;
+    flex-wrap: wrap;
+    @include tablet {
+      width: 100%;
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+    }
   }
 }

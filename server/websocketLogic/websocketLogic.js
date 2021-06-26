@@ -1,5 +1,6 @@
 const Todo = require("../models/todo");
 
+
 const updateTodo = async (id, data) => {
   const todo = await Todo.where({ id: id }).fetch();
   console.log("ohh my data", data);

@@ -2,8 +2,62 @@
 .calendar-page {
   position: "relative";
   margin: px-to-rem(24);
+  @include tablet {
+    display: flex;
+    align-items: center;
+    width: auto;
+    flex-direction: column;
+    margin: px-to-rem(24) px-to-rem(42);
+  }
+  @include desktop {
+    margin: px-to-rem(24) px-to-rem(180);
+  }
+
+  &__block {
+    @include tablet {
+      display: flex;
+      margin-bottom: px-to-rem(24);
+      width: 100%;
+    }
+  }
+  &__days {
+    @include tablet {
+      display: flex;
+      flex-direction: column;
+      align-content: center;
+    }
+    &-title {
+      text-align: center;
+      @include card;
+      width: fit-content;
+      padding: px-to-rem(8);
+      @include neumorphic-shadows(5, 6);
+      @include tablet {
+        margin: px-to-rem(16);
+        margin-top: (px-to-rem(24));
+      }
+
+      &:hover {
+        @include neumorphic-shadows(5, 6);
+      }
+    }
+  }
 
   &__add-todo {
+    @include tablet {
+      display: flex;
+      justify-content: center;
+      align-self: flex-start;
+    }
+  }
+  &__container {
+    @include tablet {
+      display: flex;
+      flex-wrap: wrap;
+
+      align-content: center;
+      justify-content: center;
+    }
   }
 
   &__cancel {
@@ -18,8 +72,14 @@
 .--open {
   transform: translateY(0);
   display: block;
+  @include tablet {
+    width: px-to-rem(300);
+  }
 }
 .--closed {
   transform: translateY(-100%);
+  display: none;
+}
+.--hidden {
   display: none;
 }

@@ -1,6 +1,7 @@
 const express = require("express");
 const User = require("../models/user");
 const bcrypt = require("bcrypt");
+const { generateToken } = require("../middleware/middleware");
 
 const hashPassword = async (passphrase) => {
   const salt = await bcrypt.genSalt(parseInt(process.env.SALT_ROUNDS));
@@ -18,12 +19,16 @@ const verifyEmail = async (email) => {
 };
 
 const users = express.Router();
-users.get("/:userId", (req, res) => {
-  const { userId } = req.params;
-  User.where({ id: userId })
+users.get("/", (req, res) => {
+  
+  const { id } = req.decode;
+  console.log(req.decode)
+  User.where({ id: id })
     .fetch()
     .then((user) => {
-      res.status(200).json(user);
+   
+      const resUser={...user.attributes , password:"", salt:""}
+      res.status(200).json(resUser);
     })
     .catch((err) =>
       res.status(400).json({ message: "Could not retrieve the user", err })
@@ -31,7 +36,7 @@ users.get("/:userId", (req, res) => {
 });
 
 users.get("/login/byemail", (req, res) => {
-  const { password, email } = req.body;
+  const { password, email } = req.query;
 
   User.where({ email: email })
     .fetch()
@@ -42,22 +47,24 @@ users.get("/login/byemail", (req, res) => {
       );
 
       if (verification) {
-        res.status(200).json({ user });
+        const userToken = generateToken(
+          user.attributes.email,
+          user.attributes.name,
+          user.attributes.id
+        );
+        res.status(200).json({ user, token: userToken });
       } else {
-        res
-          .status(403)
-          .json({ message: "verification failed, user not logged in" });
+        res.status(403).json({ message: "verification failed" });
       }
     })
-    .catch((err) =>
-      res.status(500).json({ message: "internal error, failed to log in" })
-    );
+    .catch((err) => res.status(404).json({ message: "User not registered" }));
 });
 
-users.post("/", (req, res) => {
+users.post("/signup/byemail", (req, res) => {
   const { body } = req;
 
   let newUser = { ...body };
+  console.log(newUser);
 
   verifyEmail(newUser.email)
     .then((user) =>

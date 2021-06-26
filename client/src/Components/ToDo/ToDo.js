@@ -1,16 +1,16 @@
 import "./todo.scss";
 
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import EditTodoInCal from "../EditTodoInCal/EditTodoInCal";
 import { deleteTodo, updatingTodoAll } from "../../modules/calendarLogic";
 
-const ToDo = ({ setTodos, todos, todo, todoId, socket }) => {
-  const [isDragged, setIsDragged] = useState(false);
+const ToDo = ({ setTodos, todos, todo, todoId, socket, review }) => {
+  // const [isDragged, setIsDragged] = useState(false);
   const [isEditing, setIsEditing] = useState(false);
 
   const dragStartHandler = (e) => {
     e.dataTransfer.setData("id", todo.id);
-    setIsDragged(true);
+    // setIsDragged(true);
   };
 
   const dragHandler = (e) => {
@@ -19,7 +19,7 @@ const ToDo = ({ setTodos, todos, todo, todoId, socket }) => {
 
   const dropHandler = (e) => {
     console.log("dropped");
-    setIsDragged(false);
+    // setIsDragged(false);
   };
 
   const changeIsEditing = (_e) => {
@@ -44,7 +44,9 @@ const ToDo = ({ setTodos, todos, todo, todoId, socket }) => {
           onDragStart={(e) => dragStartHandler(e, todoId)}
           onDrag={dragHandler}
           onDrop={dropHandler}
-          className={`todo ${todo.completed ? "--complete" : ""}`}
+          className={`${review ? "todo__review" : "todo"} ${
+            todo.completed ? "--complete" : ""
+          }`}
           draggable
         >
           <div
@@ -70,7 +72,7 @@ const ToDo = ({ setTodos, todos, todo, todoId, socket }) => {
                 todo.completed ? "--complete" : ""
               }`}
             >
-              completed
+              &#10003;
             </button>
           </div>
         </div>

@@ -3,6 +3,11 @@
   padding: px-to-rem(10);
   @include card;
   width: 100%;
+  height: 100%;
+  @include tablet {
+    width: px-to-rem(200);
+    margin: px-to-rem(16);
+  }
   @include neumorphic-shadows(5, 6);
   &:hover {
     @include neumorphic-shadows(5, 6);
@@ -13,5 +18,13 @@
   }
   &__box {
     min-height: 10rem;
+  }
+  &__divider {
+    margin-top: px-to-rem(5);
+    margin-bottom: px-to-rem(8);
+    border-radius: px-to-rem(5);
+    width: 100%;
+    height: px-to-rem(6);
+    @include neumorphic-shadows(3, 6);
   }
 }

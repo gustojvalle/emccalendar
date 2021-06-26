@@ -8,15 +8,28 @@
   @include neumorphic-shadows(5, 6);
   padding: px-to-rem(16);
   width: 100%;
+
+  @include tablet {
+    margin-right: px-to-rem(24);
+    padding: px-to-rem(24);
+    width: fit-content;
+  }
+
+  &__title {
+    margin-left: px-to-rem(16);
+  }
   &__label-container {
     display: flex;
     margin-bottom: px-to-rem(16);
-    justify-content: space-between;
+    justify-content: center;
+
+    align-items: center;
   }
   &__edit {
     @include neumorphic-shadows(5, 6);
     padding: px-to-rem(8);
     border-radius: px-to-rem(5);
+    margin-right: px-to-rem(16);
     &:hover {
       @include neumorphic-shadows-inset(5, 6);
     }
@@ -24,7 +37,7 @@
   &__link {
     display: flex;
     flex-direction: column;
-    width: 60%;
+    width: 100%;
 
     &-container {
       display: flex;

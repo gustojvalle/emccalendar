@@ -43,6 +43,7 @@ exports.up = function (knex) {
         .onUpdate("CASCADE")
         .onDelete("CASCADE");
       table.boolean("completed").defaultTo(false);
+      table.boolean("active").defaultTo(true);
     });
 };
 

@@ -1,0 +1,30 @@
+@use '../../partials/variables' as *;
+
+.todo-review {
+  margin-top: px-to-rem(24);
+  padding: px-to-rem(16);
+
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  @include card;
+  @include neumorphic-shadows(5, 6);
+  @include tablet {
+    width: px-to-rem(800);
+    display: flex;
+  }
+  &:hover {
+    @include neumorphic-shadows(5, 6);
+  }
+
+  &__draggable {
+    min-height: px-to-rem(200);
+
+    height: auto;
+    width: 100%;
+    @include tablet {
+      display: flex;
+      flex-wrap: wrap;
+    }
+  }
+}

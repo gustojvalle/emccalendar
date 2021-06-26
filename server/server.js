@@ -1,6 +1,7 @@
 const express = require("express");
 const app = express();
 const cors = require("cors");
+
 const {
   postTodo,
   updateTodo,
@@ -19,14 +20,19 @@ const users = require("./routes/users");
 const calendars = require("./routes/calendars");
 const todos = require("./routes/todos");
 const websocket = require("./routes/websocket");
+const {authorize} = require('./middleware/middleware');
 require("dotenv").config();
 
 app.use(express.json());
 app.use(cors());
+app.use(authorize);
 app.use("/calendars", calendars);
-app.use("/users", users);
+
 app.use("/todos", todos);
 app.use("/websocket", websocket);
+
+app.use("/users", users);
+
 
 io.on("connection", (socket) => {
   //fetching todos by calendar

@@ -1,8 +1,8 @@
 export const setDayDate = (day, startDate) => {
   let dayDate = new Date(startDate);
-  console.log("yeyo", dayDate);
+
   dayDate.setDate(dayDate.getDate() + day);
-  console.log("testing dayDate", dayDate);
+
   return dayDate;
 };
 
@@ -97,7 +97,7 @@ export const updatingTodo = async (
 
   socket.emit("updateTodo", {
     id: parseInt(todoId),
-    body: { estimated_completion: updateDate },
+    body: { estimated_completion: updateDate, active: true },
   });
   socket.on("resTodo", (data) => {
     let newTodos = todos.filter((todo) => todo.id !== parseInt(todoId));
@@ -114,7 +114,6 @@ export const updatingTodoAll = async (
 ) => {
   const timezoneOffset = new Date().getTimezoneOffset() * 60000;
 
-  console.log("upda", updateInfo);
   const estimated_completion = new Date(
     new Date(updateInfo.estimated_completion) - timezoneOffset
   )

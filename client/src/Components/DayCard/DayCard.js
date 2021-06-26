@@ -1,13 +1,7 @@
-import React, { useEffect, useState } from "react";
+import React from "react";
 import "./day-card.scss";
 import Todo from "../ToDo/ToDo";
-import {
-  updatingTodo,
-  comparingDates,
-  todoReseting,
-  socketTodosHandler,
-  setDayDate,
-} from "../../modules/calendarLogic";
+import { updatingTodo, comparingDates } from "../../modules/calendarLogic";
 
 const DayCard = ({ socket, dayDate, day, todos, setTodos, calendarId }) => {
   const dragHandler = (e) => {
@@ -18,14 +12,13 @@ const DayCard = ({ socket, dayDate, day, todos, setTodos, calendarId }) => {
     e.preventDefault();
     const todoId = e.dataTransfer.getData("id");
 
-    console.log("day Date", dayDate);
-    console.log("day ", day);
     updatingTodo(dayDate, socket, todoId, todos, setTodos);
-    console.log("todo");
   };
   return (
     <div className="day-card">
       <h2 className="day-card__title">{day}</h2>
+      <div className="day-card__divider"></div>
+
       <section
         id={day}
         onDragOver={(e) => dragHandler(e)}
@@ -33,17 +26,21 @@ const DayCard = ({ socket, dayDate, day, todos, setTodos, calendarId }) => {
         onDrop={(e) => dropHandler(e, day)}
       >
         {todos.map((todo) => {
-          return (
-            comparingDates(todo.estimated_completion, dayDate) && (
-              <Todo
-                todos={todos}
-                setTodos={setTodos}
-                todo={todo}
-                todoId={todo.id}
-                socket={socket}
-              />
-            )
-          );
+          if (todo.active) {
+            return (
+              comparingDates(todo.estimated_completion, dayDate) && (
+                <Todo
+                  todos={todos}
+                  setTodos={setTodos}
+                  todo={todo}
+                  todoId={todo.id}
+                  socket={socket}
+                  key={todo.id}
+                />
+              )
+            );
+          }
+          return null;
         })}
       </section>
     </div>

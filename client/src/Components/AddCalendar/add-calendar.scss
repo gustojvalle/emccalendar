@@ -13,15 +13,37 @@
   align-items: center;
 
   justify-content: center;
+
   &__form {
+    border-radius: px-to-rem(5);
     @include neumorphic-shadows(5, 6);
     background-color: $background-color;
     display: flex;
     flex-direction: column;
     width: 80%;
     padding: px-to-rem(16);
+    @include tablet {
+      width: 40%;
+      max-width: px-to-rem(500);
+    }
   }
   &__title {
     align-self: center;
+  }
+  &__button {
+    margin-right: px-to-rem(16);
+    &-container {
+      display: flex;
+      justify-content: center;
+    }
+  }
+  &__cancel {
+  }
+
+  &__label {
+    margin-bottom: px-to-rem(5);
+  }
+  &__input {
+    margin-bottom: px-to-rem(24);
   }
 }
