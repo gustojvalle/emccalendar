@@ -58,3 +58,34 @@ input {
   border: none;
   padding: px-to-rem(8);
 }
+
+h1 {
+  font-style: Notosans-black;
+  font-size: px-to-rem(28);
+  font-weight: 600;
+}
+h2 {
+  font-size: px-to-rem(22);
+  font-weight: 600;
+}
+h3 {
+  font-weight: 400;
+  font-size: px-to-rem(22);
+}
+p {
+  font-style: Notosans-bold;
+  font-size: px-to-rem(22);
+}
+label {
+  font-style: Notosans-regular;
+  font-size: px-to-rem(22);
+}
+
+button,
+a {
+  font-size: px-to-rem(14);
+}
+
+input {
+  font-size: px-to-rem(15);
+}

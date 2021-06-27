@@ -1,9 +1,10 @@
-import React from "react";
+import React, { useEffect } from "react";
 import "./day-card.scss";
 import Todo from "../ToDo/ToDo";
 import { updatingTodo, comparingDates } from "../../modules/calendarLogic";
-
+import { v4 as uuid } from "uuid";
 const DayCard = ({ socket, dayDate, day, todos, setTodos, calendarId }) => {
+  useEffect(() => {}, [todos]);
   const dragHandler = (e) => {
     e.preventDefault();
   };
@@ -35,7 +36,7 @@ const DayCard = ({ socket, dayDate, day, todos, setTodos, calendarId }) => {
                   todo={todo}
                   todoId={todo.id}
                   socket={socket}
-                  key={todo.id}
+                  key={uuid()}
                 />
               )
             );

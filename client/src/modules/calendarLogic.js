@@ -87,7 +87,6 @@ export const updatingTodo = async (
   todos,
   setTodos
 ) => {
-  console.log("update todo");
   const timezoneOffset = new Date().getTimezoneOffset() * 60000;
 
   const updateDate = new Date(dayDate - timezoneOffset)
@@ -110,7 +109,8 @@ export const updatingTodoAll = async (
   todoId,
   todos,
   setTodos,
-  updateInfo
+  updateInfo,
+  setTodosUpdated
 ) => {
   const timezoneOffset = new Date().getTimezoneOffset() * 60000;
 
@@ -124,14 +124,13 @@ export const updatingTodoAll = async (
     .toISOString()
     .slice(0, 19)
     .replace("T", " ");
-  console.log("creation", creation);
+
   updateInfo = {
     ...updateInfo,
     creation,
     estimated_completion,
     day: updateInfo.day.slice(0, 19).replace("T", " "),
   };
-  console.log("updateInfo", updateInfo);
 
   socket.emit("updateTodo", {
     id: parseInt(todoId),
@@ -139,6 +138,7 @@ export const updatingTodoAll = async (
   });
   socket.on("resTodo", (data) => {
     let newTodos = todos.filter((todo) => todo.id !== parseInt(todoId));
+
     newTodos.push(data);
     setTodos(newTodos);
   });
@@ -158,9 +158,12 @@ export const addTodo = (
     body: { ...todoData, calendar_Id: calendarId },
   });
   socket.on("resPostTodo", (data) => {
-    console.log(data);
     setTodos([...todos, data]);
-    setUpdateInfo({ name: "", description: "" });
+    setUpdateInfo({
+      description: "",
+      name: "",
+      estimated_completion: "",
+    });
     handleOpenClose();
   });
 };

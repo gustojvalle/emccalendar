@@ -19,7 +19,11 @@ const EditTodoInCal = ({
   const [initial, setInitial] = useState({ initial: true, initialDate: "" });
 
   const [isUpdating, setIsUpdating] = useState(false);
-  const [updateInfo, setUpdateInfo] = useState({});
+  const [updateInfo, setUpdateInfo] = useState({
+    description: "",
+    name: "",
+    estimated_completion: "",
+  });
 
   useEffect(() => {
     if (todo) {

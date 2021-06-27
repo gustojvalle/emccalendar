@@ -8,28 +8,45 @@ import queryString from "query-string";
 
 const AddCalendar = ({ setCalendars, calendars, addNewCalendar, history }) => {
   const queryParams = queryString.parse(history.location.search);
-  const [initialDate, setInitialDate] = useState();
+  const [initialDate, setInitialDate] = useState("");
 
-  const [formData, setFormData] = useState({});
+  const [formData, setFormData] = useState({
+    name: "",
+    small_block: "",
+    big_block: "",
+    starting_date: "",
+  });
+  const [editCalendar, setEditCalendar] = useState({
+    name: "",
+    small_block: "",
+    big_block: "",
+    starting_date: "",
+  });
 
   useEffect(() => {
-    let editCalendar;
     if (queryParams.calendarId) {
-      editCalendar = calendars.find(
-        (calendar) => calendar.id === parseInt(queryParams.calendarId)
-      );
-      setInitialDate(dateStringInput(editCalendar.starting_date));
       setFormData({ ...editCalendar, starting_date: initialDate });
     } else {
+      setFormData({ ...formData, starting_date: initialDate });
+    }
+  }, [initialDate]);
+
+  useEffect(() => {
+    if (queryParams.calendarId) {
+      let calendarInfo = calendars.find(
+        (calendar) => calendar.id === parseInt(queryParams.calendarId)
+      );
+      setEditCalendar(calendarInfo);
+      setInitialDate(dateStringInput(calendarInfo.starting_date));
+    } else {
       setInitialDate(dateStringInput(Date.now()));
-      setFormData({ starting_date: initialDate });
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
+  }, [queryParams.calendarId]);
 
   const editHandler = (e) => {
     e.preventDefault();
-    console.log(formData.id);
+
     putCalendar(formData, calendars, setCalendars)
       .then((data) => {
         history.push("/");
@@ -51,7 +68,7 @@ const AddCalendar = ({ setCalendars, calendars, addNewCalendar, history }) => {
         history.push("/");
         addNewCalendar();
       })
-      .catch((err) => console.log(err));
+      .catch((err) => console.log("Unable to add calendar"));
   };
   const changeHandler = (e) => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
@@ -60,7 +77,6 @@ const AddCalendar = ({ setCalendars, calendars, addNewCalendar, history }) => {
   return (
     <LoginContext.Consumer>
       {({ login }) => {
-        console.log("login", login.user);
         return (
           <div className="add-calendar">
             <form

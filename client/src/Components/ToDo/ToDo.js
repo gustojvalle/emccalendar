@@ -32,8 +32,8 @@ const ToDo = ({ setTodos, todos, todo, todoId, socket, review }) => {
 
   const completeHandler = (e) => {
     const completeTodo = { ...todo, completed: !todo.completed };
+
     updatingTodoAll(socket, todo.id, todos, setTodos, completeTodo);
-    console.log(completeTodo);
   };
 
   return (

@@ -63,6 +63,7 @@
   &__cancel {
     display: block;
     margin-bottom: px-to-rem(16);
+    @include neumorphic-shadows(5, 6);
     &--hidden {
       display: none;
     }

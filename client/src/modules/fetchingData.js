@@ -1,6 +1,6 @@
 import axios from "axios";
 
-const REQ_URL = "http://localhost:5001";
+const REQ_URL = process.env.REACT_APP_API_URL;
 
 const getAuthToken = () => {
   return `Bearer ${localStorage.getItem("jwtUserToken")}`;
@@ -19,7 +19,6 @@ const fetchCalendars = async (userId) => {
   const response = await axios.get(`${REQ_URL}/calendars/${userId}`, {
     headers: { authorization: authorizationToken },
   });
-  console.log(response);
 
   return response.data;
 };
@@ -44,7 +43,7 @@ const postCalendar = async (calendarInfo, userId, calendars, callback) => {
     { headers: { authorization: authorizationToken } }
   );
   callback([...calendars, response.data]);
-  console.log("calendar response", response);
+
   return response.data;
 };
 
@@ -80,36 +79,33 @@ const deleteCalendar = (calendarId, setCalendars) => {
     .then((res) => {
       setCalendars(res.data);
     })
-    .catch((err) => console.log(err));
+    .catch((err) => console.log("Unable to delete calendar"));
 };
 
 const loginServerRequest = (data, login, callback, history) => {
-  console.log("cb", callback);
   axios
     .get(
       `${REQ_URL}/users/login/byemail?email=${data.email}&&password=${data.password}`
     )
     .then((res) => {
-      console.log("res", res);
-
       callback({
         ...login,
         user: res.data.user,
         isLoggedIn: true,
         jwt: res.data.token,
       });
-      console.log(res.data.token);
+
       localStorage.setItem("jwtUserToken", res.data.token);
       history.push("/");
     })
-    .catch((err) => console.log(err));
+    .catch((err) => console.log("Login failed"));
 };
 
 const registerUser = (user) => {
   axios
     .post(`${REQ_URL}/users/signup/byemail`, user)
-    .then((res) => console.log(res))
-    .catch((err) => console.log(err));
+    .then((res) => {})
+    .catch((err) => console.log("Unable to register user"));
 };
 
 export {

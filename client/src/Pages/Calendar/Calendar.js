@@ -58,9 +58,7 @@ const Calendar = ({ params, history, login }) => {
           setMounted(false);
         });
     }
-
-    return () => {};
-  }, []);
+  });
   const handleOpenClose = (_e) => {
     setAddingTodo((prev) => !prev);
   };

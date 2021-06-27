@@ -7,7 +7,7 @@ const CalendarInfo = ({ calendar, addNewCalendar, deleteHandler }) => {
     <div className="calendar-info">
       <Link className="calendar-info__link" to={`/calendar?id=${calendar.id}`}>
         <div className="calendar-info__label-container">
-          <h3 className="calendar-info__title">{calendar.name}</h3>
+          <h2 className="calendar-info__title">{calendar.name}</h2>
         </div>
         <div className="calendar-info__label-container">
           <label>Starting</label>
