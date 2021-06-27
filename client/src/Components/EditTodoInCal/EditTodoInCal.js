@@ -105,7 +105,7 @@ const EditTodoInCal = ({
         value={updateInfo.name}
         placeholder="Todo title..."
       />
-      <input
+      <textarea
         onChange={changeHandler}
         name="description"
         className="edit-cal__description"

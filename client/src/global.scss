@@ -51,12 +51,28 @@ button {
   }
 }
 
-input {
+input,
+textarea {
   background-color: $background-color;
   @include neumorphic-shadows-inset(5, 6);
   border-radius: px-to-rem(5);
   border: none;
   padding: px-to-rem(8);
+  font-size: px-to-rem(18);
+}
+textarea {
+  resize: none;
+  font-family: Notosans-regular;
+  &::-moz-placeholder {
+    font-size: px-to-rem(18);
+    font-family: Notosans-regular;
+  }
+  &::-webkit-input-placeholder {
+    font-size: px-to-rem(18);
+  }
+  &::placeholder {
+    font-size: px-to-rem(18);
+  }
 }
 
 h1 {
@@ -84,8 +100,5 @@ label {
 button,
 a {
   font-size: px-to-rem(14);
-}
-
-input {
-  font-size: px-to-rem(15);
+  font-weight: 600;
 }
