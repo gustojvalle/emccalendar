@@ -20,14 +20,12 @@ const verifyEmail = async (email) => {
 
 const users = express.Router();
 users.get("/", (req, res) => {
-  
   const { id } = req.decode;
-  console.log(req.decode)
+
   User.where({ id: id })
     .fetch()
     .then((user) => {
-   
-      const resUser={...user.attributes , password:"", salt:""}
+      const resUser = { ...user.attributes, password: "", salt: "" };
       res.status(200).json(resUser);
     })
     .catch((err) =>
@@ -64,7 +62,6 @@ users.post("/signup/byemail", (req, res) => {
   const { body } = req;
 
   let newUser = { ...body };
-  console.log(newUser);
 
   verifyEmail(newUser.email)
     .then((user) =>

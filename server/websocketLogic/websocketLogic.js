@@ -1,11 +1,10 @@
 const Todo = require("../models/todo");
 
-
 const updateTodo = async (id, data) => {
   const todo = await Todo.where({ id: id }).fetch();
-  console.log("ohh my data", data);
+
   const newTodo = { ...todo.attributes, ...data };
-  console.log(newTodo);
+
   const resTodo = await todo.save(newTodo);
   return resTodo;
 };
@@ -22,7 +21,6 @@ const postTodo = (data, socket) => {
   newTodo
     .save(data)
     .then((res) => {
-      console.log(res);
       socket.emit("resPostTodo", res);
     })
     .catch((err) => {

@@ -20,7 +20,7 @@ const users = require("./routes/users");
 const calendars = require("./routes/calendars");
 const todos = require("./routes/todos");
 const websocket = require("./routes/websocket");
-const {authorize} = require('./middleware/middleware');
+const { authorize } = require("./middleware/middleware");
 require("dotenv").config();
 
 app.use(express.json());
@@ -33,11 +33,9 @@ app.use("/websocket", websocket);
 
 app.use("/users", users);
 
-
 io.on("connection", (socket) => {
   //fetching todos by calendar
   socket.on("fetchTodosCalendar", (data) => {
-    console.log("fetching todos data");
     fetchTodosCalendar(data, socket);
   });
 

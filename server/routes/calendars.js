@@ -59,7 +59,7 @@ calendars.delete("/:calendarId", (req, res) => {
     .fetch()
     .then((calendar) => {
       userId = calendar.attributes.user_id;
-      console.log(userId);
+
       calendar
         .destroy()
         .then(() => {
