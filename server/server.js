@@ -30,7 +30,6 @@ app.use("/calendars", calendars);
 
 app.use("/todos", todos);
 app.use("/websocket", websocket);
-
 app.use("/users", users);
 
 io.on("connection", (socket) => {
@@ -46,7 +45,6 @@ io.on("connection", (socket) => {
   });
 
   socket.on("postTodo", (data) => {
-    console.log(data);
     postTodo(data.body, socket);
   });
 

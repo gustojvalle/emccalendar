@@ -17,7 +17,7 @@ const Login = ({ history }) => {
 
   const handleRegister = (e) => {
     e.preventDefault();
-    console.log("Register");
+
     registerUser(formData);
   };
   const handleLogin = (e, login, setLoginData) => {
@@ -89,10 +89,10 @@ const Login = ({ history }) => {
                       {login.loginState === "login" ? "Login" : "Signup"} With
                       Email
                     </button>
-                    <button className="login__button">
+                    {/*      <button className="login__button">
                       {login.loginState === "login" ? "Login" : "Signup"} With
                       Google
-                    </button>
+                    </button>*/}
                   </div>
                 </form>
               </>

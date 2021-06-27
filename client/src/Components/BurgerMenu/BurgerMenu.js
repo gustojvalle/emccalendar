@@ -13,7 +13,7 @@ const BurgerMenu = ({ history }) => {
   const logoutHandler = (e) => {
     console.log(login);
     login.setLoginState({ ...login, isLoggedIn: false, user: {}, jwt: {} });
-    localStorage.setItem("jwtUserToken", null)
+    localStorage.setItem("jwtUserToken", null);
 
     history.push("/login");
   };
@@ -43,11 +43,11 @@ const BurgerMenu = ({ history }) => {
             <h2>Home</h2>
           </a>
         </li>
-        <li>
+        {/*      <li>
           <a href="/about">
             <h2>About</h2>
           </a>
-        </li>
+  </li>*/}
         <li className="burger__list-logout">
           <a onClick={logoutHandler} href="/login">
             <h2>Logout</h2>

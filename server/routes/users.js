@@ -49,7 +49,7 @@ users.get("/login/byemail", (req, res) => {
           user.attributes.email,
           user.attributes.name,
           user.attributes.id
-        g);
+        );
         res.status(200).json({ user, token: userToken });
       } else {
         res.status(403).json({ message: "verification failed" });
